@@ -186,6 +186,10 @@ int SDL_WasInit(uint32_t flags) { (void)flags; return (int)SDL_INIT_EVERYTHING; 
 int SDL_InitSubSystem(uint32_t flags) { (void)flags; return 0; }
 void SDL_QuitSubSystem(uint32_t flags) { (void)flags; }
 
+char *SDL_GetBasePath(void) { return NULL; }
+char *SDL_GetPrefPath(const char *org, const char *app) { (void)org; (void)app; return NULL; }
+SDL_Locale *SDL_GetPreferredLocales(void) { return NULL; }
+
 /* ---- files ---- */
 void *SDL_LoadFile(const char *file, size_t *datasize) {
     FILE *f = fopen(file, "rb");

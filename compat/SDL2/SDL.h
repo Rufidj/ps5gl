@@ -213,9 +213,20 @@ void SDL_Quit(void);
  * always reported as already initialized so callers doing the standard
  * "only SDL_Init if nothing has" dance don't redundantly call SDL_Init. */
 #define SDL_INIT_EVERYTHING 0x0000FFFFu
+#define SDL_INIT_TIMER 0x00000001u
 int SDL_WasInit(uint32_t flags);
 int SDL_InitSubSystem(uint32_t flags);
 void SDL_QuitSubSystem(uint32_t flags);
+
+/* Filesystem/locale queries libmod_misc calls but PS5 has no meaningful
+ * answer for (no real user profile paths, no OS locale service) - NULL is
+ * real SDL2's own documented failure return for both path functions, and an
+ * empty locale list is SDL_GetPreferredLocales()'s documented "unknown"
+ * return, so callers already written against real SDL2 handle these. */
+char *SDL_GetBasePath(void);
+char *SDL_GetPrefPath(const char *org, const char *app);
+typedef struct SDL_Locale { const char *language; const char *country; } SDL_Locale;
+SDL_Locale *SDL_GetPreferredLocales(void);
 int SDL_GL_SetAttribute(int attr, int value);
 SDL_Window *SDL_CreateWindow(const char *title, int x, int y, int w, int h, uint32_t flags);
 void SDL_DestroyWindow(SDL_Window *window);
